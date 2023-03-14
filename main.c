@@ -22,7 +22,7 @@ int main()
     //first edge coordinates of a line segment in form x,y : 0,4
     //second edge coordinates of a line segment in form x,y : 3,0
     //point coordinates in form x,y : 3,4
-    double dist=0;//line_segment_distance(0,4,3,0,3,4);
+    double dist=line_segment_distance(0,4,3,0,3,4);
     printf("distance:%lf\n",dist);
     // this printfs 2.4
 

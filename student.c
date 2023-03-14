@@ -6,10 +6,11 @@
 #include <stdio.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <stdlib.h>
 
 //****************** Q1 ******************
-#define WIDTH 140
-#define HEIGHT 20
+#define WIDTH 14
+#define HEIGHT 2
 
 void generateSine()
 {
@@ -42,8 +43,23 @@ void generateSine()
 }
 
 //****************** Q2 ******************
-// double line_segment_distance(int x1,int y1,int x2,int y2,int x3,int y3)
-// {
-//     //implementation goes here
-//     return 0;
-// }
+double line_segment_distance(int x1,int y1,int x2,int y2,int x3,int y3)
+{
+    double sqr_length = pow((x2 - x1),2) + pow((y2 - y1),2); // squared length of line segment
+
+    if(sqr_length == 0) // length of segment is 0, return distance between c and any of a or b
+        return sqrt(pow(x3-x2,2) + pow(y3-y2,2));
+
+    double proj_t = ((y2 - y1) * (y3 - y1) + (x2 - x1) * (x3 - x1)) / sqr_length; // t val for projection c over ab
+
+    if(proj_t < 0) // c is outside of the segment, nearest point is a
+        return sqrt(pow(x3-x1,2) + pow(y3-y1,2));
+
+    if(proj_t > 1) // c is outside of the segment, nearest point is b
+        return sqrt(pow(x3-x2,2) + pow(y3-y2,2));
+
+    double proj_x = proj_t * (x2 - x1) + x1; // projection x
+    double proj_y = proj_t * (y2 - y1) + y1; // projection y
+
+    return sqrt(pow(x3-proj_x,2) + pow(y3-proj_y,2)); // distance between c and projection point
+}
